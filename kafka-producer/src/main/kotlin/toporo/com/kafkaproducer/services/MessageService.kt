@@ -11,13 +11,10 @@ class MessageService {
     @Autowired
     lateinit var kafkaService: KafkaService
 
-    open fun SendNewMessage(mesage : Message) : String {
+    fun SendNewMessage(message : Message) : String {
 
-        var producer = kafkaService.createProducer()
+        var response = kafkaService.sendMessage(message)
 
-        var record = ProducerRecord(mesage.topic, "Message", mesage.message)
-        producer.send(record)
-
-        return "Send message!"
+        return response
     }
 }
